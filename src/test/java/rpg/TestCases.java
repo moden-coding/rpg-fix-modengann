@@ -157,11 +157,6 @@ public class TestCases extends junit.framework.TestCase {
         level.addScript(d);
         level.addScript(e);
         
-        // Test the basic getScript
-        assertTrue("The script added first should be the one returned by the simple getScript(script).", level.getScript(a) != e);
-        assertTrue("Using a script itself as a template should always locate that script in a level.", level.getScript(a) == a);
-        assertTrue("If a script is not in a level, getScript(script) should return null.", level.getScript(n) == null);
-        
         // Test the array getScripts()
         ArrayList scripts = level.getScripts(new Script(1, -1, null, null));
         assertTrue("The getScripts(script) method should return an array of all the scripts that match the given template.", scripts != null && scripts.size() == 4);
@@ -169,6 +164,11 @@ public class TestCases extends junit.framework.TestCase {
         scripts = level.getScripts(n);
         assertTrue("If there are no scripts matching the template, |getScripts()| should return an empty ArrayList.", scripts != null && scripts.isEmpty());
         
+        // Test the basic getScript
+        assertTrue("The script added first should be the one returned by the simple getScript(script).", level.getScript(a) != e);
+        assertTrue("Using a script itself as a template should always locate that script in a level.", level.getScript(a) == a);
+        assertTrue("If a script is not in a level, getScript(script) should return null.", level.getScript(n) == null);
+               
         // Test getScript(n, script)
         assertTrue("The getScript(n, script) method should return matches in the order they were added to the level.", level.getScript(0, a) == a && level.getScript(1, a) == e);
         assertTrue("The getScript(n, script) method should return null if the index is greater than or equal to the number of matches.", level.getScript(2, a) == null);
@@ -299,6 +299,19 @@ public class TestCases extends junit.framework.TestCase {
      */
     @Test
     public void testTiles() {
+        //The first test will create a very simple level which should look like:
+        //   0 1 2
+        //   3 4 5
+        //Where each number is a tile type. 
+        Level basicLevel = Level.testLoadBasicTiles();
+        assertTrue("The test level did not load correctly. Use a debugger on the previous line to see what is wrong! ", basicLevel != null);
+
+        //These two tests check if your getTile method is working correctly. getTile(0,1) should return tile type 3, not type 1!
+        assertTrue("Asking for a tile (0,1) should return tile type 2\nThink about how x and y coordinates correspond to your 2D array!", basicLevel.getTile(0,1) == Tile.getTile(1));
+        assertTrue("Asking for a tile (1,0) should return tile type 2", basicLevel.getTile(1,0) == Tile.getTile(3));
+
+
+        //This will load a more complicated Level which will be used for the rest of the tests
         Level level = Level.testLoadTiles();
         assertTrue("The test level does not appear to have loaded. Make sure that \"test.txt\" is in your RPG directory, and check the terminal for errors that might have occurred in your constructor.", level != null);
         

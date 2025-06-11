@@ -102,6 +102,23 @@ public class Level extends Object {
         return null;
     }
 
+    public static Level testLoadBasicTiles() {
+        try {
+            Level level = new Level();
+            Tile.loadTiles();
+            BufferedReader reader = new BufferedReader(new FileReader(new File("./basic test.txt")));
+            reader.readLine();
+            reader.readLine();
+            level.width = 3;
+            level.height = 2;
+            level.loadTiles(reader);
+            return level;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 /* * * * * Beginning of part 2 * * * * */
 
     /**
@@ -175,6 +192,7 @@ public class Level extends Object {
      * @param file BufferedReader to read from, representing the file.
      */
     public void loadTiles(BufferedReader file) throws IOException {
+        
     }
     
     /**
@@ -198,6 +216,7 @@ public class Level extends Object {
      * @return the tile at the given (x, y) location
      */
     public void setTile(int x, int y, Tile tile) {
+        
     }
 
     /**
